@@ -72,7 +72,8 @@ namespace fabric {
 
       // Add _selectResult listeners to each result
       for (let i = 0; i < this._peoplePickerResults.length; i++) {
-        this._peoplePickerResults[i].addEventListener("click", this._selectResult.bind(this), true);
+        this._peoplePickerResults[i].addEventListener("click", this._selectResult.bind(this));
+        this._peoplePickerResults[i].querySelector(".ms-PeoplePicker-resultAction").addEventListener("click", this._removeResult.bind(this));
       }
     }
 
@@ -129,7 +130,7 @@ namespace fabric {
     }
 
     private _removeResult(e) {
-      let currentResult = this._findElement(e.target, "ms-PeoplePicker-selectedPerson");
+      let currentResult = this._findElement(e.target, "ms-PeoplePicker-result");
       currentResult.remove();
     }
 
@@ -157,6 +158,7 @@ namespace fabric {
       let membersList = this._container.querySelector(".ms-PeoplePicker-selectedPeople");
       let firstMember = membersList.querySelector(".ms-PeoplePicker-selectedPerson");
       let selectedItem = document.createElement("li");
+      let memberCount = this._container.querySelector(".ms-PeoplePicker-selectedCount");
 
       // Create the selectedPerson list item
       selectedItem.classList.add("ms-PeoplePicker-selectedPerson");
